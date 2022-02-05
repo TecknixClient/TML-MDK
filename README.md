@@ -15,6 +15,9 @@ license header.
 
 ## Setting up:
 
+- Download the zip file from github and open it in your IDE of choice.
+- You will notice the API files are missing, download the latest release of the api and put it in a folder called "lib" under the root directory.
+
 - Open the gradle project in Intellij IDEA or Eclipse.
 - Run "setupDecompWorkspace" then "setupCiWorkspace".
   ![Image](https://imgur.com/pbLxpi5.png)
