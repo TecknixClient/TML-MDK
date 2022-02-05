@@ -1,0 +1,6 @@
+{
+  "mainClass": "com.tecknix.modding.examplemod.ExampleMod",
+  "modName": "Example Mod",
+  "modAuthor": "Tecknix Software",
+  "modVersion": "1.0.0"
+}
