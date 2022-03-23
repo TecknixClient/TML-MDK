@@ -46,7 +46,7 @@ EventBus.post(new YourEvent());
 ```java
 @TMSubscription
 public void onChat(TMChatEvent event){
-    System.err.println("CHAT: "+event.getFormattedText());
+    System.err.println("CHAT: " + event.getFormattedText());
 }
 ```
 
@@ -87,7 +87,7 @@ public class ExampleTransformer implements IModTransformer {
 Call this#registerModTransformers in the onEnable method of your main class.
 
 ```java
-this.registerModTransformers(new Transformer1(),new Transformer2,new Transformer3());
+this.registerModTransformers(new Transformer1(), new Transformer2(), new Transformer3());
 ```
 
 ## Code Style:
