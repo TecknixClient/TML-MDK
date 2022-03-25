@@ -29,6 +29,7 @@ public class ExampleTransformer implements IModTransformer {
 
     @Override
     public byte[] transform(String s, byte[] bytes) {
+        System.err.println("Transforming class: '" + s + "'.");
         return bytes;
     }
 }

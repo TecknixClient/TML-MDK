@@ -20,6 +20,9 @@ package com.tecknix.modding.examplemod.listener;
 import com.tecknix.modding.api.event.TMSubscription;
 import com.tecknix.modding.api.event.type.TMChatEvent;
 
+/*
+ * This listener is not registered. Ensure you register the listeners on game startup and not on mod startup!
+ */
 public class ExampleListener {
 
     @TMSubscription

@@ -69,9 +69,12 @@ public class MDKTweaker implements ITweaker {
         final MixinEnvironment environment = MixinEnvironment.getDefaultEnvironment();
 
         /* Add the mod's mixin configuration. (This is optional if you wish to rely on events)... */
-        Mixins.addConfiguration("mixins.mod.json");
-        //Add the modding api's mixin configuration.
-        Mixins.addConfiguration("mixins.moddingapi.json");
+
+        for (String str : MDKDevLoader.getInstance().getMixinConfigNames()) {
+            if (str != null) {
+                Mixins.addConfiguration("mixins." + str + ".json");
+            }
+        }
 
         if (environment.getObfuscationContext() == null) {
             environment.setObfuscationContext("notch");

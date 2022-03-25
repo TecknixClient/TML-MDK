@@ -18,7 +18,11 @@
 package com.tecknix.modding.examplemod;
 
 import com.tecknix.modding.api.TecknixMod;
+import com.tecknix.modding.api.transform.IModTransformer;
 import com.tecknix.modding.examplemod.transformer.ExampleTransformer;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * ExampleMod main class. Feel free to develop off of this base!
@@ -30,11 +34,17 @@ public class ExampleMod extends TecknixMod {
     @Override
     public void onInitialize() {
         System.err.println("Example mod has been initialized.");
-        this.registerModTransformers(new ExampleTransformer());
     }
 
     @Override
     public void onTerminate() {
+        System.err.println("Example mod has been terminated.");
 
     }
+
+    @Override
+    public List<IModTransformer> getTransformers() {
+        return Collections.singletonList(new ExampleTransformer());
+    }
+
 }
