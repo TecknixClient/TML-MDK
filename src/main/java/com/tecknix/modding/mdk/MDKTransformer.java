@@ -25,7 +25,7 @@ public class MDKTransformer implements IClassTransformer {
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytesIn) {
 
-        for (final IModTransformer modTransformer : MDKDevLoader.getInstance().getTransformers()) {
+        for (final IModTransformer modTransformer : MDKDevLoader.getTransformers()) {
             final byte[] transformed = modTransformer.transform(name, bytesIn);
 
             //This should allow you to transform a class with multiple transformers.

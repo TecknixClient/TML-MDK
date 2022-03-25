@@ -17,10 +17,12 @@
 
 package com.tecknix.modding.mdk;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.tecknix.modding.api.TecknixMod;
+import com.tecknix.modding.api.transform.IModTransformer;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,8 @@ import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@link MDKDevLoader}
@@ -79,5 +83,37 @@ public class MDKDevLoader {
 
         //Call the mod's initialize method.
         tecknixMod.onInitialize();
+    }
+
+    public static List<IModTransformer> getTransformers() {
+        List<IModTransformer> transformers = new ArrayList<>();
+        final InputStream is = MDKDevLoader.class.getClassLoader().getResourceAsStream("tecknix-mod.json");
+
+        assert is != null;
+        final Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
+
+        final JsonElement element = new JsonParser().parse(reader);
+
+        final JsonObject object = element.getAsJsonObject();
+
+        final JsonArray arr = object.get("modTransformers").getAsJsonArray();
+
+
+        for (int i = 0; i < arr.size(); i++) {
+            String s = arr.get(i).getAsString();
+
+
+            try {
+                final Class<?> main = Class.forName(s, true, MDKDevLoader.class.getClassLoader());
+
+                final IModTransformer tecknixMod = (IModTransformer) main.newInstance();
+
+                transformers.add(tecknixMod);
+            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        return transformers;
     }
 }

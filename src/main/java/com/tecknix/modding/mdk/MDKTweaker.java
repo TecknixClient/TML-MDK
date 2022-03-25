@@ -18,6 +18,10 @@
 package com.tecknix.modding.mdk;
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.minecraft.launchwrapper.ITweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import org.spongepowered.asm.launch.MixinBootstrap;
@@ -25,7 +29,12 @@ import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MDKTweaker implements ITweaker {
@@ -70,7 +79,23 @@ public class MDKTweaker implements ITweaker {
 
         /* Add the mod's mixin configuration. (This is optional if you wish to rely on events)... */
 
-        for (String str : MDKDevLoader.getInstance().getMixinConfigNames()) {
+        final List<String> mixinNames = new ArrayList<>();
+        final InputStream is = MDKDevLoader.class.getClassLoader().getResourceAsStream("tecknix-mod.json");
+
+        assert is != null;
+        final Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8);
+
+        final JsonElement element = new JsonParser().parse(reader);
+
+        final JsonObject object = element.getAsJsonObject();
+
+        final JsonArray arr = object.get("mixinConfigurations").getAsJsonArray();
+
+        for (int i = 0; i < arr.size(); i++) {
+            mixinNames.add(arr.get(i).getAsString());
+        }
+
+        for (String str : mixinNames) {
             if (str != null) {
                 Mixins.addConfiguration("mixins." + str + ".json");
             }
