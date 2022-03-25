@@ -106,9 +106,9 @@ public class MDKDevLoader {
             try {
                 final Class<?> main = Class.forName(s, true, MDKDevLoader.class.getClassLoader());
 
-                final IModTransformer tecknixMod = (IModTransformer) main.newInstance();
+                final IModTransformer transformer = (IModTransformer) main.newInstance();
 
-                transformers.add(tecknixMod);
+                transformers.add(transformer);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException exception) {
                 exception.printStackTrace();
             }
