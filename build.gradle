@@ -31,7 +31,7 @@ minecraft {
     version = "1.8.9"
     tweakClass = "com.tecknix.modding.mdk.MDKTweaker"
     runDir = "run"
-    mappings = "stable_20"
+    mappings = "stable_22"
     makeObfSourceJar = false
 }
 
